@@ -6,7 +6,7 @@ whisky auction price scraper script that is modeled off the html of a popular wh
 | -------------------------------------------------------------- | ------------------ |
 | accept an array of search term ('longrow red', 'lagavulin 12') | :white_check_mark: |
 | an informative cli                                             | :white_check_mark: |
-| sns to scrape on the last day of Auction                       | :white_check_mark: |
+| scrape on the last day of Auction and notify using a sns                       | :white_check_mark: |
 
 ## Tek
 
