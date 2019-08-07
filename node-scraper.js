@@ -1,6 +1,14 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 
+const urlConstructor = (searchArgs, pageNumber = 1) => {
+  if (searchArgs.length === 0) {
+    throw Error("No search arguments specified");
+  }
+  const searchString = searchArgs.join("+");
+  return `https://www.scotchwhiskyauctions.com/auctions/search/?page=${pageNumber}&q=${searchString}&area=&sort=az&order=asc&perpage=500`;
+};
+
 const url =
   "https://www.scotchwhiskyauctions.com/auctions/search/?q=longrow+red";
 
@@ -10,10 +18,6 @@ const priceFloat = priceStr => {
     return priceStr.slice(1);
   }
   return parsed;
-};
-
-const constructProdUrl = prodUrl => {
-  return `https://www.scotchwhiskyauctions.com/${prodUrl}`;
 };
 
 const priceSort = prodArray => {
@@ -58,7 +62,7 @@ const parseHtml = async html => {
       title: prodTitle,
       price: priceFloat(prodPrice),
       lotNumbder: prodLotNumber.slice(-5),
-      url: constructProdUrl(prodUrl)
+      url: `https://www.scotchwhiskyauctions.com/${prodUrl}`
     };
     parsedResults.push(data);
   });
@@ -74,7 +78,8 @@ const scrape = async url => {
   return results;
 };
 
-scrape(url);
+// scrape(url);
 
 module.exports.priceSort = priceSort;
 module.exports.uniqueWhiskies = uniqueWhiskies;
+module.exports.urlConstructor = urlConstructor;

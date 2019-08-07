@@ -208,3 +208,28 @@ describe("priceSort", () => {
     expect(response).toEqual(expected);
   });
 });
+
+describe("urlConstructor", () => {
+  it("should construct a valid url from an array of search args", () => {
+    const expected =
+      "https://www.scotchwhiskyauctions.com/auctions/search/?page=1&q=longrow+red&area=&sort=az&order=asc&perpage=500";
+    const searchArguments = ["longrow", "red"];
+    const response = scrape.urlConstructor(searchArguments);
+    expect(response).toEqual(expected);
+  });
+
+  it("should construct a valid url from an array of search args 1 arg", () => {
+    const expected =
+      "https://www.scotchwhiskyauctions.com/auctions/search/?page=1&q=longrow&area=&sort=az&order=asc&perpage=500";
+    const searchArguments = ["longrow"];
+    const response = scrape.urlConstructor(searchArguments);
+    expect(response).toEqual(expected);
+  });
+
+  it("should throw an error if no search arguments are specified", () => {
+    const searchArguments = [];
+    expect(() => scrape.urlConstructor(searchArguments)).toThrow(
+      Error("No search arguments specified")
+    );
+  });
+});
